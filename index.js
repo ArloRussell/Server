@@ -10,10 +10,17 @@ const io = new Server(server, {
     }
 });
 
-io.compress('connection', (socket)=>{
+let msgLog = [];
+
+io.on('connection', (socket)=>{
     console.log('User Connected: ', socket.id);
 
     socket.on('message', (msg) => {
+        msgLog.push(msg);
+        // if(msg.length > 20){
+        //     msgLog.shift();
+        // }
+        console.log(`Log: ${msgLog}`);
         console.log('Message received: ', msg);
         io.emit('message', msg); // Broadcast to all clients
     });
