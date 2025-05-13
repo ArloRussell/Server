@@ -21,11 +21,12 @@ io.compress('connection', (socket)=>{
     socket.on('disconnect', ()=>{
         console.log('User disconnected: ', socket.id);
     })
+    
+    socket.on('image', (image) => {
+        io.emit('image', image);
+    })
 });
 
-socket.on('image', (image) => {
-    io.emit('image', image);
-})
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, ()=>{
